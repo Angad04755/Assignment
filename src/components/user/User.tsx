@@ -60,8 +60,8 @@ function User() {
 
   return (
 
-    <main className="min-h-screen bg-gradient-to-b from-cyan-200 to-cyan-700 p-6">
-    <section>
+    <main className="min-h-screen bg-gradient-to-b from-cyan-200 to-cyan-700 p-6 text-gray-600">
+    <section className="container mx-auto">
         <ArrowLeft size={28} className="cursor-pointer bg-white rounded-full px-1 py-1" onClick={() => navigate(-1)}/>
         <article className="mt-5">
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
