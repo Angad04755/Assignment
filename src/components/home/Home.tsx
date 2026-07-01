@@ -27,7 +27,7 @@ function Home() {
         setLoading(true)
         const data = await GetUsers();
         dispatch(SetUser(data));
-      } catch (error) {
+      } catch (error: any) {
         toast.error(error.message);
     } finally {
         setLoading(false)
