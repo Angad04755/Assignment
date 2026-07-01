@@ -14,7 +14,7 @@ export type Address = {
     suite: string;
     city: string;
     zipcode: string;
-    geo: string;
+    geo: Geo;
 }
 
 export type Geo = {
