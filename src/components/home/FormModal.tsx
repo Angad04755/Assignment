@@ -8,6 +8,7 @@ import { AddUser } from "../../redux/slices/UserSlice";
 import type { AppDispatch } from "../../redux/store";
 import type { userType } from "../../types/userType";
 import { X } from "lucide-react";
+import { toast } from "sonner";
 
 interface FormModalProps {
     onclose: () => void,
@@ -53,6 +54,7 @@ function FormModal({ onclose }: FormModalProps) {
 
     dispatch(AddUser(newUser));
     reset();
+    toast.success("Added new user")
     onclose();
   };
 
