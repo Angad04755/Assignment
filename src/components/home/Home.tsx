@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SetUser } from "../../redux/slices/UserSlice";
 import { GetUsers } from "../../services/GetUsers";
-import type { RootState, AppDispatch } from "../../redux/store";
+import { type RootState, type AppDispatch } from "../../redux/store";
+import { toast } from "sonner";
+import UserCard from "../../ui/UserCard";
 
 function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,14 +19,11 @@ function Home() {
         const data = await GetUsers();
         dispatch(SetUser(data));
       } catch (error) {
-        if (error instanceof Error) {
-          console.error(error.message);
+          toast.error(error.message);
         }
       }
-    };
-
     loadUsers();
-  }, [dispatch]);
+  }, []);
 
   if (users.length === 0) {
     return (
@@ -35,10 +34,19 @@ function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-cyan-200 to-cyan-700">
+    <main className="min-h-screen bg-gradient-to-b from-cyan-200 to-cyan-700 px-10 py-10">
+        <section className="container mx-auto">
+        <article className="flex flex-row justify-between">
+        <h2 className="text-xl text-gray-700 font-semibold">Users</h2>
+        <button className="bg-green-300 text-gray-900 px-3 py-2 font-semibold cursor-pointer hover:bg-green-400 active:bg-green-500 transition rounded-lg shadow-lg">Create New User</button>
+        </article>
+        <article className="grid grid-cols-[1fr] md:grid-cols-[1fr_1fr] gap-10 pt-10">
+
       {users.map((user) => (
-        <div key={user.id}>{user.name}</div>
+        <UserCard key={user.id} user={user}/>
       ))}
+      </article>
+      </section>
     </main>
   );
 }
