@@ -41,8 +41,8 @@ function User() {
   if (!user) {
     return (
       <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-cyan-200 to-cyan-700">
-        <ArrowLeft onClick={() => navigate(-1)}/>
-        <h1 className="text-xl font-semibold text-red-400">
+        
+        <h1 className="text-xl font-semibold text-red-500 bg-white px-5 py-5 rounded-lg">
           User not found
         </h1>
       </main>
