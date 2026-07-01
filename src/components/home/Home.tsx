@@ -8,6 +8,7 @@ import UserCard from "../../ui/UserCard";
 import SearchBar from "../../components/search/SearchBar";
 import FormModal from "./FormModal";
 import { Plus } from "lucide-react";
+import { BarLoader } from "react-spinners";
 
 function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,26 +19,40 @@ function Home() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const loadUsers = async () => {
       try {
+        setLoading(true)
         const data = await GetUsers();
         dispatch(SetUser(data));
       } catch (error) {
-        if (error instanceof Error) {
-          toast.error(error.message);
-        }
-      }
+        toast.error(error.message);
+    } finally {
+        setLoading(false)
+    }
     };
 
     loadUsers();
   }, []);
 
-  if (users.length === 0) {
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: "instant"})
+  }, []);
+
+  if (loading) {
     return (
-      <main className="min-h-screen flex justify-center items-center">
-        Loading users...
+        <main className="min-h-screen flex justify-center items-center bg-gradient-to-b from-cyan-200 to-cyan-700">
+            <BarLoader color="white"/>
+        </main>
+    )
+  }
+
+  if (!users) {
+    return (
+      <main className="min-h-screen flex justify-center items-center bg-gradient-to-b from-cyan-200 to-cyan-700">
+        No users
       </main>
     );
   }

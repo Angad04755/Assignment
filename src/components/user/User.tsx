@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { GetUserById } from "../../services/GetUserById";
 import { type userType } from "../../types/userType";
 import { ArrowLeft } from "lucide-react";
+import { BarLoader } from "react-spinners";
 
 function User() {
   const { id } = useParams();
@@ -10,6 +11,11 @@ function User() {
   const [user, setUser] = useState<userType | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: "instant"})
+  }, []);
+
 
   useEffect(() => {
     const loadUser = async () => {
@@ -33,10 +39,13 @@ function User() {
   if (loading) {
     return (
       <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-cyan-200 to-cyan-700">
-        <h1 className="text-xl font-semibold text-white">Loading...</h1>
+        <BarLoader color="white"/>
       </main>
     );
   }
+
+ 
+
 
   if (!user) {
     return (
@@ -54,7 +63,7 @@ function User() {
     <main className="min-h-screen bg-gradient-to-b from-cyan-200 to-cyan-700 p-6">
     <section>
         <ArrowLeft size={28} className="cursor-pointer bg-white rounded-full px-1 py-1" onClick={() => navigate(-1)}/>
-        <article className="pt-5">
+        <article className="mt-5">
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
 
         <h1 className="text-3xl font-bold mb-6">
