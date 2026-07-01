@@ -27,7 +27,7 @@ function UserCard({ user }: UserCardProps) {
           <span className="font-semibold text-gray-600">Company:</span>
           <p>{user.company.name}</p>
         </div>
-        <span className="cursor-pointe text-gray-700 hover:text-blue-400 font-semibold cursor-pointer transition" onClick={() =>naviagate(`/users/${user.id}`) }>View Details</span>
+        <span className="cursor-pointe text-gray-700 hover:text-blue-400 active:text-blue-500 font-semibold cursor-pointer transition" onClick={() =>naviagate(`/users/${user.id}`) }>View Details</span>
       </div>
     </div>
   );
