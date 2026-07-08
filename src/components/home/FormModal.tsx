@@ -9,13 +9,13 @@ import type { AppDispatch } from "../../redux/store";
 import type { userType } from "../../types/userType";
 import { X } from "lucide-react";
 import { toast } from "sonner";
-
+import  { useState } from "react";
 interface FormModalProps {
     onclose: () => void,
 }
 function FormModal({ onclose }: FormModalProps) {
   const dispatch = useDispatch<AppDispatch>();
-
+  const [currentIndex, setCurrentIndex] = useState(0);
   const {
     register,
     handleSubmit,
@@ -57,6 +57,12 @@ function FormModal({ onclose }: FormModalProps) {
     toast.success("Added new user")
     onclose();
   };
+  const handleNext = () => {
+    setCurrentIndex((prev) => prev + 1);
+  }
+  const handlePrev = () => {
+    setCurrentIndex((prev) => prev - 1);
+  }
 
   return (
     <Modal>
@@ -70,6 +76,8 @@ function FormModal({ onclose }: FormModalProps) {
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4"
       >
+        {currentIndex === 0 && (
+          <>
         <input
           {...register("name")}
           placeholder="Name"
@@ -97,7 +105,10 @@ function FormModal({ onclose }: FormModalProps) {
           className="w-full rounded-lg p-3 focus-within:ring-2 focus-within:ring-cyan-500 border-1 border-cyan-500 focus-within:outline-none"
         />
         <p className="text-sm text-red-500">{errors.phone?.message}</p>
-
+        </>
+          )}
+          {currentIndex === 1 && (
+            <>
         <input
           {...register("website")}
           placeholder="Website"
@@ -170,7 +181,13 @@ function FormModal({ onclose }: FormModalProps) {
         >
           Add User
         </button>
+        </>
+        )}
       </form>
+      <div className="flex flex-row justify-between place-content-center mt-[5px]">
+        {currentIndex === 1 && (<button className="bg-green-500 text-white px-3 py-2 rounded-lg" onClick={handlePrev}>Prev</button>)}
+        {currentIndex === 0 && (<button className="bg-green-500 text-white px-3 py-2 rounded-lg" onClick={handleNext}>Next</button>)}
+      </div>
       </div>
     </Modal>
   );
